@@ -22,12 +22,30 @@ module.exports = {
           compilerOptions: {
             noEmit: false // this option will solve the issue
           }
-        }
-      }
+        },
+      }, 
+      {
+        test: /\.css$/,
+        include: path.resolve(__dirname, 'src/assets/css'),
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif|webp)$/i,
+        include: path.resolve(__dirname, 'src/assets/img'),
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'images/',
+            },
+          },
+        ],
+      },
     ]
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx', '.ts', '.tsx']
+    extensions: ['.*', '.js', '.jsx', '.ts', '.tsx']
   },
   plugins: [
     new HtmlWebpackPlugin({

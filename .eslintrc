@@ -10,7 +10,8 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": ["import", "react", "simple-import-sort", "react-hooks"],
+  // "plugins": ["import", "react", "simple-import-sort", "react-hooks"],
+  "plugins": ["import", "react", "react-hooks"],
 
   "rules": {
     "react/react-in-jsx-scope": 0,
@@ -22,8 +23,8 @@
     "jsx-a11y/click-events-have-key-events": 0,
     "jsx-a11y/no-static-element-interactions": 0,
 
-    "simple-import-sort/imports": 1,
-    "simple-import-sort/exports": 1,
+    // "simple-import-sort/imports": 0,
+    // "simple-import-sort/exports": 0,
 
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "@typescript-eslint/restrict-template-expressions": 0,
@@ -65,29 +66,28 @@
     ]
   },
   "overrides": [
-    // override "simple-import-sort" config
     {
       "files": ["*.js", "*.jsx", "*.ts", "*.tsx"],
       "rules": {
-        "simple-import-sort/imports": [
-          "error",
-          {
-            "groups": [
-              // Packages `react` related packages come first.
-              ["^react", "^@?\\w"],
-              // Internal packages.
-              ["^(@|components)(/.*|$)"],
-              // Side effect imports.
-              ["^\\u0000"],
-              // Parent imports. Put `..` last.
-              ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
-              // Other relative imports. Put same-folder imports and `.` last.
-              ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
-              // Style imports.
-              ["^.+\\.?(css)$"]
-            ]
-          }
-        ]
+        // "simple-import-sort/imports": [
+        //   "error",
+        //   {
+        //     "groups": [
+        //       // Packages `react` related packages come first.
+        //       ["^react", "^@?\\w"],
+        //       // Internal packages.
+        //       ["^(@|components)(/.*|$)"],
+        //       // Side effect imports.
+        //       ["^\\u0000"],
+        //       // Parent imports. Put `..` last.
+        //       ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+        //       // Other relative imports. Put same-folder imports and `.` last.
+        //       ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+        //       // Style imports.
+        //       ["^.+\\.?(css)$"]
+        //     ]
+        //   }
+        // ]
       }
     }
   ]

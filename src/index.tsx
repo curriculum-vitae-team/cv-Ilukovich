@@ -1,9 +1,11 @@
 import React from 'react'
-import { createRoot } from 'react-dom/client'
+import * as ReactDOM from 'react-dom/client'
+import { Authentication } from './Authentication'
+import './assets/css/style.css'
 
-import Hello from './Hello'
-
-const container = document.getElementById('root') as HTMLElement
-const root = createRoot(container)
-
-root.render(<Hello />)
+const root = ReactDOM.createRoot(document.getElementById('root')!)
+root.render(
+  <React.StrictMode>
+    <Authentication />
+  </React.StrictMode>
+)
