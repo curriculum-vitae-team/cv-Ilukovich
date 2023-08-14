@@ -10,8 +10,7 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  // "plugins": ["import", "react", "simple-import-sort", "react-hooks"],
-  "plugins": ["import", "react", "react-hooks"],
+  "plugins": ["import", "react", "simple-import-sort", "react-hooks"],
 
   "rules": {
     "react/react-in-jsx-scope": 0,
@@ -23,8 +22,8 @@
     "jsx-a11y/click-events-have-key-events": 0,
     "jsx-a11y/no-static-element-interactions": 0,
 
-    // "simple-import-sort/imports": 0,
-    // "simple-import-sort/exports": 0,
+    "simple-import-sort/imports": 0,
+    "simple-import-sort/exports": 0,
 
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "@typescript-eslint/restrict-template-expressions": 0,
