@@ -1,0 +1,93 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:import/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "eslint-config-prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["import", "react", "simple-import-sort", "react-hooks"],
+
+  "rules": {
+    "react/react-in-jsx-scope": 0,
+
+    "no-empty": 1,
+    "import/no-extraneous-dependencies": 1,
+    "react-hooks/rules-of-hooks": 2,
+
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+
+    "simple-import-sort/imports": 2,
+    "simple-import-sort/exports": 2,
+
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/restrict-template-expressions": 0,
+    "@typescript-eslint/no-unsafe-member-access": 0,
+    "@typescript-eslint/no-unsafe-assignment": 0,
+    "@typescript-eslint/no-unsafe-return": 0,
+    "@typescript-eslint/no-explicit-any": 1,
+    "@typescript-eslint/no-unsafe-call": 0,
+    "@typescript-eslint/unbound-method": 0,
+    "@typescript-eslint/no-unused-vars": 1,
+    "@typescript-eslint/ban-types": 0,
+    "@typescript-eslint/camelcase": 0,
+    "@typescript-eslint/no-shadow": 1,
+    "@typescript-eslint/naming-convention": 0,
+    "import/no-anonymous-default-export": 0,
+    "import/no-unresolved": 0,
+    "react/destructuring-assignment": 1,
+    "react/require-default-props": 0,
+    "react-hooks/exhaustive-deps": 0,
+    "react/no-unescaped-entities": 0,
+    "react/display-name": 0,
+    "react/prop-types": 0,
+    "class-methods-use-this": 0,
+    "multiline-ternary": 0,
+    "react/no-array-index-key": 0,
+    "camelcase": 2,
+    "@typescript-eslint/strict-boolean-expressions": 0,
+    "@typescript-eslint/space-before-function-paren": 0,
+    "no-nested-ternary": 0,
+    "no-param-reassign": 2,
+    "no-empty-pattern": 1,
+    "no-shadow": 0,
+    "prettier/prettier": 0,
+    "@typescript-eslint/no-misused-promises": 0,
+    "react/jsx-curly-brace-presence": 2,
+    "@typescript-eslint/explicit-function-return-type": [
+      "off",
+      { "allowExpressions": true, "allowTypedFunctionExpressions": true }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["*.js", "*.jsx", "*.ts", "*.tsx"],
+      "rules": {
+        "simple-import-sort/imports": [
+          "error",
+          {
+            "groups": [
+              // Packages `react` related packages come first.
+              ["^react", "^@?\\w"],
+              // Internal packages.
+              ["^(@|components)(/.*|$)"],
+              // Side effect imports.
+              ["^\\u0000"],
+              // Parent imports. Put `..` last.
+              ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+              // Other relative imports. Put same-folder imports and `.` last.
+              ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+              // Style imports.
+              ["^.+\\.?(css)$"]
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
