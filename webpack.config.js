@@ -20,28 +20,22 @@ module.exports = {
         loader: 'ts-loader',
         options: {
           compilerOptions: {
-            noEmit: false // this option will solve the issue
+            noEmit: false
           }
-        },
-      }, 
+        }
+      },
       {
         test: /\.css$/,
-        include: path.resolve(__dirname, 'src/assets/css'),
-        use: ['style-loader', 'css-loader'],
+        include: path.resolve(__dirname, 'src/'),
+        use: ['style-loader', 'css-loader']
       },
       {
-        test: /\.(png|jpe?g|gif|webp)$/i,
-        include: path.resolve(__dirname, 'src/assets/img'),
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'images/',
-            },
-          },
-        ],
-      },
+        test: /\.(png|jpe?g|gif|jp2|webp)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'images/[name].[ext]'
+        }
+      }
     ]
   },
   resolve: {
@@ -60,5 +54,10 @@ module.exports = {
       directory: path.join(__dirname, 'build')
     },
     port: 3000
+  },
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
   }
 }
