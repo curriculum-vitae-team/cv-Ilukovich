@@ -1,8 +1,7 @@
 import React from 'react'
-
+import MenuIcon from '@mui/icons-material/Menu'
 import { Avatar, IconButton, Toolbar } from '@mui/material'
 import Box from '@mui/material/Box'
-import MenuIcon from '@mui/icons-material/Menu'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
 
@@ -16,6 +15,7 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = props => {
   const { isAuthenticatedUser } = props
+
   const [value, setValue] = React.useState(0)
 
   const changeActiveTab = (event: React.SyntheticEvent, newValue: number) => {
