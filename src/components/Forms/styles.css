@@ -1,0 +1,42 @@
+.login_form_div {
+  display: flex;
+  flex-direction: column;
+}
+
+.login_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 200px;
+}
+
+.login_welcome_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.sing_in_button,
+.sing_in_button:hover {
+  background-color: #c63031;
+  margin-top: 20px;
+}
+
+.reset_password_link {
+  color: #c63031;
+  margin-top: 20px;
+}
+
+.reset_password_div {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.error_message {
+  color: red;
+  margin-top: 10px;
+  margin-bottom: -15px;
+  width: 60ch;
+}

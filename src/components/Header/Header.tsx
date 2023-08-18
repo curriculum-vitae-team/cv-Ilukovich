@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link, Outlet } from 'react-router-dom'
 import MenuIcon from '@mui/icons-material/Menu'
 import { Avatar, IconButton, Toolbar } from '@mui/material'
 import Box from '@mui/material/Box'
@@ -11,30 +12,30 @@ import './styles.css'
 
 interface HeaderProps {
   isAuthenticatedUser: boolean
+  activeTab: Number
+  setActiveTab: Function
 }
 
 export const Header: React.FC<HeaderProps> = props => {
-  const { isAuthenticatedUser } = props
-
-  const [value, setValue] = React.useState(0)
+  const { isAuthenticatedUser, activeTab, setActiveTab } = props
 
   const changeActiveTab = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue)
+    setActiveTab(newValue)
   }
 
   return (
     <div className="header">
-      {isAuthenticatedUser ? (
+      {!isAuthenticatedUser ? (
         <div className="unauthenticated_header">
           <Box sx={{ width: '100%' }}>
             <Tabs
-              value={value}
+              value={activeTab}
               onChange={changeActiveTab}
               centered
               TabIndicatorProps={{ style: { background: 'red' } }}
             >
-              <Tab label="LOGIN" />
-              <Tab label="SIGNUP" />
+              <Tab label="LOGIN" component={Link} to="login" />
+              <Tab label="SIGNUP" component={Link} to="signup" />
             </Tabs>
           </Box>
         </div>
@@ -47,10 +48,14 @@ export const Header: React.FC<HeaderProps> = props => {
           </Toolbar>
           <div className="header_userinfo">
             <span className="header_user_email header_text">test@gmail.com</span>
-            <Avatar alt="Avatar" src={myImage} />
+            <Link to="login">
+              <Avatar alt="Avatar" src={myImage} />
+            </Link>
           </div>
         </div>
       )}
+
+      <Outlet />
     </div>
   )
 }
