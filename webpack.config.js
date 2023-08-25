@@ -6,7 +6,8 @@ module.exports = {
   entry: './src/index.tsx',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'build')
+    path: path.resolve(__dirname, 'build'),
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -50,6 +51,7 @@ module.exports = {
     })
   ],
   devServer: {
+    historyApiFallback: true,
     static: {
       directory: path.join(__dirname, 'build')
     },

@@ -4,37 +4,63 @@ import { StyledEngineProvider } from '@mui/material'
 
 import { LoginForm } from './components/Forms/LoginForm'
 import { SignUpForm } from './components/Forms/SignUpForm'
-import { Header } from './components/Header/Header'
+// import { UnauthenticatedHeader } from './components/Header/UnauthenticatedHeader'
+import { AuthenticatedWrapper } from './AuthenticatedWrapper'
+import { AppRoutes } from './path'
+import { UnauthenticatedWrapper } from './UnauthenticatedWrapper'
 
 export const App = () => {
-  const [isAuthenticatedUser, setIsAuthenticatedUser] = useState(false)
+  const token = localStorage.getItem('token') !== null ? localStorage.getItem('token') : ''
+
+  const [isAuthenticatedUser, setIsAuthenticatedUser] = useState(token)
   const [activeTab, setActiveTab] = useState(0)
 
   return (
     <StyledEngineProvider injectFirst>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Header
-              isAuthenticatedUser={isAuthenticatedUser}
-              activeTab={activeTab}
-              setActiveTab={setActiveTab}
-            />
-          }
-        >
+        {isAuthenticatedUser ? (
+          <Route path="/" element={<AuthenticatedWrapper />} />
+        ) : (
           <Route
-            path="login"
+            path="/"
             element={
-              <LoginForm
+              <UnauthenticatedWrapper
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
                 setIsAuthenticatedUser={setIsAuthenticatedUser}
-                isAuthenticatedUser={isAuthenticatedUser}
               />
             }
-          />
-          <Route path="signup" element={<SignUpForm isAuthenticatedUser={isAuthenticatedUser} />} />
-        </Route>
+          >
+            <Route
+              path="/"
+              element={<span className="welcome_card"> Welcome to my CV project</span>}
+            />
+            <Route
+              path={AppRoutes.login}
+              element={<LoginForm setIsAuthenticatedUser={setIsAuthenticatedUser} />}
+            />
+            <Route path={AppRoutes.signup} element={<SignUpForm />} />
+          </Route>
+        )}
       </Routes>
     </StyledEngineProvider>
   )
 }
+
+// <Route
+//   path="/"
+//   element={
+//     <UnauthenticatedHeader activeTab={activeTab} setActiveTab={setActiveTab} />
+//     // <Header
+//     //   isAuthenticatedUser={isAuthenticatedUser}
+//     //   activeTab={activeTab}
+//     //   setActiveTab={setActiveTab}
+//     // />
+//   }
+// >
+//   <Route
+//     path={AppRoutes.login}
+//     element={<LoginForm setIsAuthenticatedUser={setIsAuthenticatedUser} />}
+//   />
+//   <Route path={AppRoutes.signup} element={<SignUpForm />} />
+// </Route>

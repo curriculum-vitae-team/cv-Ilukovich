@@ -1,42 +1,38 @@
 import React, { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import { Navigate } from 'react-router-dom'
 import { useLazyQuery } from '@apollo/client'
-import { Visibility, VisibilityOff } from '@mui/icons-material'
-import {
-  CircularProgress,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput
-} from '@mui/material'
+import { CircularProgress } from '@mui/material'
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
 
-import { SIGNIN_QUERY } from '../../database/queries/UserQueries'
+import { SigninButton } from '../../controls/form/buttons/SigninButton'
+import { LoginInput } from '../../controls/form/input/LoginInput'
+import { PasswordInput } from '../../controls/form/input/PasswordInput'
+import { signinQuery } from '../../database/queries/User/signin_query'
 
 import './styles.css'
 
 interface LoginFormProps {
   setIsAuthenticatedUser: Function
-  isAuthenticatedUser: Boolean
 }
 
-export const LoginForm: React.FC<LoginFormProps> = props => {
-  const { setIsAuthenticatedUser, isAuthenticatedUser } = props
+type FormValues = {
+  email: string
+  password: string
+}
 
-  const [login, setLogin] = useState('')
-  const [password, setPassword] = useState('')
+export const LoginForm: React.FC<LoginFormProps> = ({ setIsAuthenticatedUser }) => {
   const [showPassword, setShowPassword] = useState(false)
 
-  const [loginRequest, { loading, data, error }] = useLazyQuery(SIGNIN_QUERY)
+  const { handleSubmit, control } = useForm<FormValues>()
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
+  const [loginRequest, { loading, data, error }] = useLazyQuery(signinQuery)
+
+  const onSubmit = (formData: FormValues) => {
     loginRequest({
       variables: {
-        email: login,
-        password: password
+        email: formData.email,
+        password: formData.password
       }
     })
   }
@@ -49,77 +45,58 @@ export const LoginForm: React.FC<LoginFormProps> = props => {
 
   if (data && data.login && data.login.user) {
     setIsAuthenticatedUser(true)
+    localStorage.setItem('token', data.login.access_token)
+    return <Navigate replace to="/" />
   }
 
   return (
-    <div className="login_div">
-      {!isAuthenticatedUser ? (
-        !loading ? (
+    <div className="login">
+      <div className="login_form">
+        <div className="login_welcome">
+          <h1 className="login_welcome_h1"> Welcome Back</h1>
+          <span className="login_welcome_phrase">Hello again! Sign in to continue.</span>
+        </div>
+        <Box
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { mb: '10px', width: '60ch' }
+          }}
+          autoComplete="off"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div className="login_form">
-            <div className="login_welcome_div">
-              <h1 className="login_welcome"> Welcome Back</h1>
-              <span className="login_welcome_phrase">Hello again! Sign in to continue.</span>
-            </div>
-            <Box
-              component="form"
-              sx={{
-                '& .MuiTextField-root': { mb: '10px', width: '60ch' }
-              }}
-              autoComplete="off"
-              onSubmit={handleSubmit}
-            >
-              <div className="login_form_div">
-                <TextField
-                  id="outlined-basic"
-                  label="Login"
-                  required
-                  variant="outlined"
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setLogin(event.target.value)
-                  }}
+            <Controller
+              name="email"
+              control={control}
+              defaultValue=""
+              render={({ field }) => <LoginInput onChangeProps={field.onChange} />}
+            />
+            <Controller
+              name="password"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <PasswordInput
+                  showPassword={showPassword}
+                  setPassword={field.onChange}
+                  handleClickShowPassword={handleClickShowPassword}
+                  handleMouseDownPassword={handleMouseDownPassword}
                 />
-                <FormControl variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                  <OutlinedInput
-                    id="outlined-adornment-password"
-                    label="Password"
-                    required
-                    type={showPassword ? 'text' : 'password'}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                      setPassword(event.target.value)
-                    }}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                  />
-                </FormControl>
-                {error ? <p className="error_message"> {error?.message}. Try again</p> : ''}
-                <Button className="sing_in_button" type="submit" variant="contained">
-                  SIGN IN
-                </Button>
-              </div>
-              <div className="reset_password_div">
-                <a href="" className="reset_password_link">
-                  RESET PASSWORD
-                </a>
-              </div>
-            </Box>
+              )}
+            />
+            <div className="login_notification">
+              {error ? <span className="error_message"> {error?.message}. Try again</span> : ''}
+              {loading ? <CircularProgress /> : ''}
+            </div>
+            <SigninButton textOfButton="sign in" />
           </div>
-        ) : (
-          <CircularProgress />
-        )
-      ) : (
-        <span> You are already logged in</span>
-      )}
+          <div className="reset_password">
+            <a href="#" className="reset_password_link caps_title">
+              reset password
+            </a>
+          </div>
+        </Box>
+      </div>
     </div>
   )
 }

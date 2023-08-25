@@ -7,11 +7,12 @@ import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
 
 import myImage from '../../assets/img/first_avatar.png'
+import { AppRoutes } from '../../path'
 
 import './styles.css'
 
 interface HeaderProps {
-  isAuthenticatedUser: boolean
+  isAuthenticatedUser: string | null
   activeTab: Number
   setActiveTab: Function
 }
@@ -34,8 +35,8 @@ export const Header: React.FC<HeaderProps> = props => {
               centered
               TabIndicatorProps={{ style: { background: 'red' } }}
             >
-              <Tab label="LOGIN" component={Link} to="login" />
-              <Tab label="SIGNUP" component={Link} to="signup" />
+              <Tab label="login" component={Link} to={AppRoutes.login} className="caps_title" />
+              <Tab label="signup" component={Link} to={AppRoutes.signup} className="caps_title" />
             </Tabs>
           </Box>
         </div>

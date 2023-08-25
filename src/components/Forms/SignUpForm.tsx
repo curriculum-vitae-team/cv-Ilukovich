@@ -1,44 +1,38 @@
 import React, { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import { Navigate } from 'react-router-dom'
 import { useMutation } from '@apollo/client'
-import { Visibility, VisibilityOff } from '@mui/icons-material'
-import {
-  CircularProgress,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput
-} from '@mui/material'
+import { CircularProgress } from '@mui/material'
 import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
 
-import { SIGNUP_MUTATION } from '../../database/queries/UserQueries'
+import { SigninButton } from '../../controls/form/buttons/SigninButton'
+import { LoginInput } from '../../controls/form/input/LoginInput'
+import { PasswordInput } from '../../controls/form/input/PasswordInput'
+import { signupMutation } from '../../database/queries/User/signup_query'
+import { AppRoutes } from '../../path'
 
-interface SignUpFormProps {
-  isAuthenticatedUser: Boolean
+type FormValues = {
+  email: string
+  password: string
 }
 
-export const SignUpForm: React.FC<SignUpFormProps> = props => {
-  const { isAuthenticatedUser } = props
-
-  const [login, setLogin] = useState('')
-  const [password, setPassword] = useState('')
+export const SignUpForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false)
 
-  const [signUpRequest, { loading, data, error }] = useMutation(SIGNUP_MUTATION)
+  const { handleSubmit, control } = useForm<FormValues>()
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault()
+  const [signUpRequest, { loading, data, error }] = useMutation(signupMutation)
+
+  const onSubmit = async (formData: FormValues) => {
     try {
       await signUpRequest({
         variables: {
-          email: login,
-          password: password
+          email: formData.email,
+          password: formData.password
         }
       })
-    } catch (error1) {
-      console.log('Error', error1)
+    } catch (requestError) {
+      console.log('Error', requestError)
     }
   }
 
@@ -50,72 +44,52 @@ export const SignUpForm: React.FC<SignUpFormProps> = props => {
 
   if (data && data.signup && data.signup.user) {
     console.log(data.signup)
+    return <Navigate to={AppRoutes.login} replace={true} />
   }
 
   return (
-    <div className="login_div">
-      {!isAuthenticatedUser ? (
-        !loading ? (
+    <div className="login">
+      <div className="login_form">
+        <div className="login_welcome">
+          <h1 className="login_welcome_h1"> Register Now </h1>
+          <span className="login_welcome_phrase">Welcome! Sign up to continue.</span>
+        </div>
+        <Box
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { mb: '10px', width: '60ch' }
+          }}
+          autoComplete="off"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div className="login_form">
-            <div className="login_welcome_div">
-              <h1 className="login_welcome"> Register Now </h1>
-              <span className="login_welcome_phrase">Welcome! Sign up to continue.</span>
-            </div>
-            <Box
-              component="form"
-              sx={{
-                '& .MuiTextField-root': { mb: '10px', width: '60ch' }
-              }}
-              autoComplete="off"
-              onSubmit={handleSubmit}
-            >
-              <div className="login_form_div">
-                <TextField
-                  id="outlined-basic"
-                  label="Login"
-                  variant="outlined"
-                  required
-                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setLogin(event.target.value)
-                  }}
+            <Controller
+              name="email"
+              control={control}
+              defaultValue=""
+              render={({ field }) => <LoginInput onChangeProps={field.onChange} />}
+            />
+            <Controller
+              name="password"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <PasswordInput
+                  showPassword={showPassword}
+                  setPassword={field.onChange}
+                  handleClickShowPassword={handleClickShowPassword}
+                  handleMouseDownPassword={handleMouseDownPassword}
                 />
-                <FormControl variant="outlined">
-                  <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                  <OutlinedInput
-                    id="outlined-adornment-password"
-                    label="Password"
-                    required
-                    type={showPassword ? 'text' : 'password'}
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                      setPassword(event.target.value)
-                    }}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                          edge="end"
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                  />
-                </FormControl>
-                {error ? <p className="error_message"> {error?.message}. Try again</p> : ''}
-                <Button className="sing_in_button" type="submit" variant="contained">
-                  SIGN UP
-                </Button>
-              </div>
-            </Box>
+              )}
+            />
+            <div className="login_notification">
+              {error ? <span className="error_message"> {error?.message}. Try again</span> : ''}
+              {loading ? <CircularProgress /> : ''}
+            </div>
+            <SigninButton textOfButton="sign up" />
           </div>
-        ) : (
-          <CircularProgress />
-        )
-      ) : (
-        <span> You already have an account </span>
-      )}
+        </Box>
+      </div>
     </div>
   )
 }
