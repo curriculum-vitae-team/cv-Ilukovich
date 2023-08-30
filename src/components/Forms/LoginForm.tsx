@@ -2,11 +2,10 @@ import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Navigate } from 'react-router-dom'
 import { useLazyQuery } from '@apollo/client'
-import { CircularProgress } from '@mui/material'
+import { Button, CircularProgress } from '@mui/material'
 import Box from '@mui/material/Box'
 
-import { SigninButton } from '../../controls/form/buttons/SigninButton'
-import { LoginInput } from '../../controls/form/input/LoginInput'
+import { InputForHookForm } from '../../controls/form/input/Input'
 import { PasswordInput } from '../../controls/form/input/PasswordInput'
 import { signinQuery } from '../../database/queries/User/signin_query'
 
@@ -65,12 +64,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ setIsAuthenticatedUser }) 
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="login_form">
-            <Controller
-              name="email"
-              control={control}
-              defaultValue=""
-              render={({ field }) => <LoginInput onChangeProps={field.onChange} />}
-            />
+            <InputForHookForm name="email" control={control} defaultValue="" />
             <Controller
               name="password"
               control={control}
@@ -88,7 +82,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({ setIsAuthenticatedUser }) 
               {error ? <span className="error_message"> {error?.message}. Try again</span> : ''}
               {loading ? <CircularProgress /> : ''}
             </div>
-            <SigninButton textOfButton="sign in" />
+            <Button className="sing_in_button caps_title" type="submit" variant="contained">
+              sign in
+            </Button>
           </div>
           <div className="reset_password">
             <a href="#" className="reset_password_link caps_title">

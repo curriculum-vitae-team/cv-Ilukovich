@@ -2,11 +2,10 @@ import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Navigate } from 'react-router-dom'
 import { useMutation } from '@apollo/client'
-import { CircularProgress } from '@mui/material'
+import { Button, CircularProgress } from '@mui/material'
 import Box from '@mui/material/Box'
 
-import { SigninButton } from '../../controls/form/buttons/SigninButton'
-import { LoginInput } from '../../controls/form/input/LoginInput'
+import { InputForHookForm } from '../../controls/form/input/Input'
 import { PasswordInput } from '../../controls/form/input/PasswordInput'
 import { signupMutation } from '../../database/queries/User/signup_query'
 import { AppRoutes } from '../../path'
@@ -43,8 +42,7 @@ export const SignUpForm: React.FC = () => {
   }
 
   if (data && data.signup && data.signup.user) {
-    console.log(data.signup)
-    return <Navigate to={AppRoutes.login} replace={true} />
+    return <Navigate to={AppRoutes.login} replace />
   }
 
   return (
@@ -63,12 +61,7 @@ export const SignUpForm: React.FC = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="login_form">
-            <Controller
-              name="email"
-              control={control}
-              defaultValue=""
-              render={({ field }) => <LoginInput onChangeProps={field.onChange} />}
-            />
+            <InputForHookForm name="email" control={control} defaultValue="" />
             <Controller
               name="password"
               control={control}
@@ -86,7 +79,9 @@ export const SignUpForm: React.FC = () => {
               {error ? <span className="error_message"> {error?.message}. Try again</span> : ''}
               {loading ? <CircularProgress /> : ''}
             </div>
-            <SigninButton textOfButton="sign up" />
+            <Button className="sing_in_button caps_title" type="submit" variant="contained">
+              sign up
+            </Button>
           </div>
         </Box>
       </div>

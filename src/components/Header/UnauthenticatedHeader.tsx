@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
@@ -35,7 +35,6 @@ export const UnauthenticatedHeader: React.FC<HeaderProps> = props => {
           </Tabs>
         </Box>
       </div>
-      <Outlet />
     </div>
   )
 }

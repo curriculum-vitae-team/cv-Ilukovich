@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import MenuIcon from '@mui/icons-material/Menu'
 import { Avatar, IconButton, Toolbar } from '@mui/material'
 
@@ -23,7 +23,6 @@ export const AuthenticatedHeader: React.FC = () => {
           </Link>
         </div>
       </div>
-      <Outlet />
     </div>
   )
 }
