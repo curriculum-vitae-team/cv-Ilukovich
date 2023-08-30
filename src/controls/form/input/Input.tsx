@@ -6,7 +6,6 @@ import { InputForHookFormProps, MyInputProps } from './type'
 
 export const Input: React.FC<MyInputProps> = props => {
   const { id, label, isRequired, variant, onChangeProps } = props
-  console.log(onChangeProps)
 
   return (
     <TextField
@@ -21,7 +20,6 @@ export const Input: React.FC<MyInputProps> = props => {
 
 export const InputForHookForm: React.FC<InputForHookFormProps> = props => {
   const { name, control, defaultValue } = props
-  console.log(typeof control)
 
   return (
     <Controller
