@@ -5,7 +5,7 @@ import { useLazyQuery } from '@apollo/client'
 import { Button, CircularProgress } from '@mui/material'
 import Box from '@mui/material/Box'
 
-import { InputForHookForm } from '../../controls/form/input/Input'
+import { InputControl } from '../../controls/form/input/Input'
 import { PasswordInput } from '../../controls/form/input/PasswordInput'
 import { signinQuery } from '../../database/queries/User/signin_query'
 
@@ -64,7 +64,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ setIsAuthenticatedUser }) 
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="login_form">
-            <InputForHookForm name="email" control={control} defaultValue="" />
+            <InputControl name="email" control={control} defaultValue="" />
             <Controller
               name="password"
               control={control}

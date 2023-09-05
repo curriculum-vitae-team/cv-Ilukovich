@@ -1,21 +1,34 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
-import { UnauthenticatedHeader } from './components/Header/UnauthenticatedHeader'
+import { LoginForm } from './components/Forms/LoginForm'
+import { SignUpForm } from './components/Forms/SignUpForm'
+import { AppLayoutUnauth } from './components/Layout/AppLayoutUnauth'
+import { AppRoutes } from './path'
 
 interface UnAuthenticatedWrapper {
-  activeTab: Number
-  setActiveTab: Function
   setIsAuthenticatedUser: Function
 }
 
 export const UnauthenticatedWrapper: React.FC<UnAuthenticatedWrapper> = props => {
-  const { activeTab, setActiveTab } = props
+  const { setIsAuthenticatedUser } = props
 
   return (
     <>
-      <UnauthenticatedHeader activeTab={activeTab} setActiveTab={setActiveTab} />
-      <Outlet />
+      <Routes>
+        <Route
+          path="/"
+          element={<AppLayoutUnauth setIsAuthenticatedUser={setIsAuthenticatedUser} />}
+        >
+          <Route index element={<Navigate to={AppRoutes.login} replace />} />
+          <Route
+            path={AppRoutes.login}
+            element={<LoginForm setIsAuthenticatedUser={setIsAuthenticatedUser} />}
+          />
+          <Route path={AppRoutes.signup} element={<SignUpForm />} />
+        </Route>
+        <Route path="*" element={<Navigate to={AppRoutes.login} replace />} />
+      </Routes>
     </>
   )
 }

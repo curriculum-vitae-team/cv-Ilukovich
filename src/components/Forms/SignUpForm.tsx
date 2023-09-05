@@ -5,7 +5,7 @@ import { useMutation } from '@apollo/client'
 import { Button, CircularProgress } from '@mui/material'
 import Box from '@mui/material/Box'
 
-import { InputForHookForm } from '../../controls/form/input/Input'
+import { InputControl } from '../../controls/form/input/Input'
 import { PasswordInput } from '../../controls/form/input/PasswordInput'
 import { signupMutation } from '../../database/queries/User/signup_query'
 import { AppRoutes } from '../../path'
@@ -61,7 +61,7 @@ export const SignUpForm: React.FC = () => {
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className="login_form">
-            <InputForHookForm name="email" control={control} defaultValue="" />
+            <InputControl name="email" control={control} defaultValue="" />
             <Controller
               name="password"
               control={control}

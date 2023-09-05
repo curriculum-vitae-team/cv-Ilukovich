@@ -1,8 +1,8 @@
 import React from 'react'
-import { Controller } from 'react-hook-form'
+import { Controller, FieldValues, UseControllerProps } from 'react-hook-form'
 import { TextField } from '@mui/material'
 
-import { InputForHookFormProps, MyInputProps } from './type'
+import { MyInputProps } from './type'
 
 export const Input: React.FC<MyInputProps> = props => {
   const { id, label, isRequired, variant, onChangeProps } = props
@@ -18,14 +18,16 @@ export const Input: React.FC<MyInputProps> = props => {
   )
 }
 
-export const InputForHookForm: React.FC<InputForHookFormProps> = props => {
+export const InputControl = <T extends FieldValues>(
+  props: UseControllerProps<T> & MyInputProps
+) => {
   const { name, control, defaultValue } = props
 
   return (
     <Controller
       name={name}
       control={control}
-      defaultValue={defaultValue || ''}
+      defaultValue={defaultValue}
       render={({ field }) => (
         <Input
           id="outlined-basic"

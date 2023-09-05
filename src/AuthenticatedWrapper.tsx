@@ -6,7 +6,7 @@ import { AuthenticatedHeader } from './components/Header/AuthenticatedHeader'
 export const AuthenticatedWrapper = () => {
   return (
     <>
-      <AuthenticatedHeader />\
+      <AuthenticatedHeader />
       <Outlet />
     </>
   )
