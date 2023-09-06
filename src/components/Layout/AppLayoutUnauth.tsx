@@ -3,11 +3,7 @@ import { Outlet } from 'react-router-dom'
 
 import { UnauthenticatedHeader } from '../Header/UnauthenticatedHeader'
 
-interface UnAuthenticatedWrapper {
-  setIsAuthenticatedUser: Function
-}
-
-export const AppLayoutUnauth: React.FC<UnAuthenticatedWrapper> = () => {
+export const AppLayoutUnauth: React.FC = () => {
   const currentPage = window.location.pathname
 
   const [activeTab, setActiveTab] = useState(() => {

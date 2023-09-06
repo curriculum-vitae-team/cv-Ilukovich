@@ -6,25 +6,13 @@ import { SignUpForm } from './components/Forms/SignUpForm'
 import { AppLayoutUnauth } from './components/Layout/AppLayoutUnauth'
 import { AppRoutes } from './path'
 
-interface UnAuthenticatedWrapper {
-  setIsAuthenticatedUser: Function
-}
-
-export const UnauthenticatedWrapper: React.FC<UnAuthenticatedWrapper> = props => {
-  const { setIsAuthenticatedUser } = props
-
+export const UnauthenticatedWrapper: React.FC = () => {
   return (
     <>
       <Routes>
-        <Route
-          path="/"
-          element={<AppLayoutUnauth setIsAuthenticatedUser={setIsAuthenticatedUser} />}
-        >
+        <Route path="/" element={<AppLayoutUnauth />}>
           <Route index element={<Navigate to={AppRoutes.login} replace />} />
-          <Route
-            path={AppRoutes.login}
-            element={<LoginForm setIsAuthenticatedUser={setIsAuthenticatedUser} />}
-          />
+          <Route path={AppRoutes.login} element={<LoginForm />} />
           <Route path={AppRoutes.signup} element={<SignUpForm />} />
         </Route>
         <Route path="*" element={<Navigate to={AppRoutes.login} replace />} />

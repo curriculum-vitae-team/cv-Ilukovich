@@ -1,13 +1,17 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 
-import { AuthenticatedHeader } from './components/Header/AuthenticatedHeader'
+import { AppLayoutAuth } from './components/Layout/AppLayoutAuth'
 
 export const AuthenticatedWrapper = () => {
   return (
     <>
-      <AuthenticatedHeader />
-      <Outlet />
+      <Routes>
+        <Route path="/" element={<AppLayoutAuth />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+      {/* <AuthenticatedHeader />
+      <Outlet /> */}
     </>
   )
 }

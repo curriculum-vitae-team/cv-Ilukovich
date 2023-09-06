@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useLazyQuery } from '@apollo/client'
 import { Button, CircularProgress } from '@mui/material'
 import Box from '@mui/material/Box'
@@ -11,16 +11,14 @@ import { signinQuery } from '../../database/queries/User/signin_query'
 
 import './styles.css'
 
-interface LoginFormProps {
-  setIsAuthenticatedUser: Function
-}
-
 type FormValues = {
   email: string
   password: string
 }
 
-export const LoginForm: React.FC<LoginFormProps> = ({ setIsAuthenticatedUser }) => {
+export const LoginForm: React.FC = () => {
+  const navigate = useNavigate()
+
   const [showPassword, setShowPassword] = useState(false)
 
   const { handleSubmit, control } = useForm<FormValues>()
@@ -43,9 +41,8 @@ export const LoginForm: React.FC<LoginFormProps> = ({ setIsAuthenticatedUser }) 
   }
 
   if (data && data.login && data.login.user) {
-    setIsAuthenticatedUser(true)
     localStorage.setItem('token', data.login.access_token)
-    return <Navigate replace to="/" />
+    navigate('/', { replace: true })
   }
 
   return (
