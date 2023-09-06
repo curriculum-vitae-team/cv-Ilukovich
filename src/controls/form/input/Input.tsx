@@ -2,25 +2,17 @@ import React from 'react'
 import { Controller, FieldValues, UseControllerProps } from 'react-hook-form'
 import { TextField } from '@mui/material'
 
-import { MyInputProps } from './type'
+import { InputProps } from './type'
 
-export const Input: React.FC<MyInputProps> = props => {
-  const { id, label, isRequired, variant, onChangeProps } = props
+export const Input: React.FC<InputProps> = props => {
+  const { id, label, required, variant, onChange } = props
 
   return (
-    <TextField
-      id={id}
-      label={label}
-      required={isRequired}
-      variant={variant}
-      onChange={onChangeProps}
-    />
+    <TextField id={id} label={label} required={required} variant={variant} onChange={onChange} />
   )
 }
 
-export const InputControl = <T extends FieldValues>(
-  props: UseControllerProps<T> & MyInputProps
-) => {
+export const InputControl = <T extends FieldValues>(props: UseControllerProps<T> & InputProps) => {
   const { name, control, defaultValue } = props
 
   return (
@@ -32,9 +24,9 @@ export const InputControl = <T extends FieldValues>(
         <Input
           id="outlined-basic"
           label="Login"
-          isRequired={true}
+          required={true}
           variant="outlined"
-          onChangeProps={field.onChange}
+          onChange={field.onChange}
         />
       )}
     />

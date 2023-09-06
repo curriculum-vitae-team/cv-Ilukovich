@@ -16,7 +16,7 @@ interface HeaderProps {
 export const UnauthenticatedHeader: React.FC<HeaderProps> = props => {
   const { activeTab, setActiveTab } = props
 
-  const changeActiveTab = (event: React.SyntheticEvent, newValue: number) => {
+  const changeActiveTab = (event: React.SyntheticEvent, newValue: string) => {
     setActiveTab(newValue)
   }
 

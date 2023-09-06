@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@apollo/client'
 import { Button, CircularProgress } from '@mui/material'
 import Box from '@mui/material/Box'
@@ -16,7 +16,7 @@ type FormValues = {
 }
 
 export const SignUpForm: React.FC = () => {
-  const [showPassword, setShowPassword] = useState(false)
+  const navigate = useNavigate()
 
   const { handleSubmit, control } = useForm<FormValues>()
 
@@ -35,14 +35,12 @@ export const SignUpForm: React.FC = () => {
     }
   }
 
-  const handleClickShowPassword = () => setShowPassword(show => !show)
-
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
   }
 
   if (data && data.signup && data.signup.user) {
-    return <Navigate to={AppRoutes.login} replace />
+    navigate(AppRoutes.login, { replace: true })
   }
 
   return (
@@ -68,9 +66,7 @@ export const SignUpForm: React.FC = () => {
               defaultValue=""
               render={({ field }) => (
                 <PasswordInput
-                  showPassword={showPassword}
                   setPassword={field.onChange}
-                  handleClickShowPassword={handleClickShowPassword}
                   handleMouseDownPassword={handleMouseDownPassword}
                 />
               )}

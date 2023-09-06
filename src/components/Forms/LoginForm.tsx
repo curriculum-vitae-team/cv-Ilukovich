@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { useLazyQuery } from '@apollo/client'
 import { Button, CircularProgress } from '@mui/material'
 import Box from '@mui/material/Box'
 
+import { setAccessToken } from '../../App'
 import { InputControl } from '../../controls/form/input/Input'
 import { PasswordInput } from '../../controls/form/input/PasswordInput'
 import { signinQuery } from '../../database/queries/User/signin_query'
@@ -19,8 +20,6 @@ type FormValues = {
 export const LoginForm: React.FC = () => {
   const navigate = useNavigate()
 
-  const [showPassword, setShowPassword] = useState(false)
-
   const { handleSubmit, control } = useForm<FormValues>()
 
   const [loginRequest, { loading, data, error }] = useLazyQuery(signinQuery)
@@ -34,14 +33,12 @@ export const LoginForm: React.FC = () => {
     })
   }
 
-  const handleClickShowPassword = () => setShowPassword(show => !show)
-
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
   }
 
   if (data && data.login && data.login.user) {
-    localStorage.setItem('token', data.login.access_token)
+    setAccessToken(data.login.access_token)
     navigate('/', { replace: true })
   }
 
@@ -68,9 +65,7 @@ export const LoginForm: React.FC = () => {
               defaultValue=""
               render={({ field }) => (
                 <PasswordInput
-                  showPassword={showPassword}
                   setPassword={field.onChange}
-                  handleClickShowPassword={handleClickShowPassword}
                   handleMouseDownPassword={handleMouseDownPassword}
                 />
               )}

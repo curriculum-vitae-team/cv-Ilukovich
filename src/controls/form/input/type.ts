@@ -1,12 +1,8 @@
-import { TextFieldProps } from '@mui/material'
 import { ChangeEvent } from 'react'
-// import { Control, FieldValues, UseControllerProps } from 'react-hook-form'
+import { TextFieldProps } from '@mui/material'
 
-export type MyInputProps = TextFieldProps & {
+export type InputProps = TextFieldProps & {
     id?: string
     label?: string
-    isRequired?: boolean
-    variant?: string
-    onChangeProps?: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }  
 
