@@ -8,7 +8,7 @@ import { UnauthenticatedWrapper } from './UnauthenticatedWrapper'
 export const App = () => {
   const token = Boolean(localStorage.getItem('token')) || ''
 
-  const [isAuthenticatedUser, setIsAuthenticatedUser] = useState(token)
+  const [isAuthenticatedUser] = useState(token)
 
   return (
     <StyledEngineProvider injectFirst>
@@ -16,10 +16,7 @@ export const App = () => {
         {isAuthenticatedUser ? (
           <Route path="*" element={<AuthenticatedWrapper />} />
         ) : (
-          <Route
-            path="*"
-            element={<UnauthenticatedWrapper setIsAuthenticatedUser={setIsAuthenticatedUser} />}
-          />
+          <Route path="*" element={<UnauthenticatedWrapper />} />
         )}
       </Routes>
     </StyledEngineProvider>
