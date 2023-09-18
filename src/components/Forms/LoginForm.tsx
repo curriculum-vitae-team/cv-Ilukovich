@@ -39,6 +39,7 @@ export const LoginForm: React.FC = () => {
 
   if (data && data.login && data.login.user) {
     setAccessToken(data.login.access_token)
+    localStorage.setItem('login', data.login.user.email)
     navigate('/', { replace: true })
   }
 
