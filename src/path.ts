@@ -1,4 +1,4 @@
-export const AppRoutes: {[key:string]: string} = {
+export const AppRoutes = {
   login: '/login',
   signup: '/signup',
   employees: '/employees',

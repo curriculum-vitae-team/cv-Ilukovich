@@ -2,13 +2,13 @@ import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { useLazyQuery } from '@apollo/client'
-import { Button, CircularProgress } from '@mui/material'
-import Box from '@mui/material/Box'
+import { Box, Button, CircularProgress } from '@mui/material'
 
 import { setAccessToken } from '../../App'
 import { InputControl } from '../../controls/form/input/Input'
 import { PasswordInput } from '../../controls/form/input/PasswordInput'
 import { signinQuery } from '../../database/queries/User/signin_query'
+import { LocalStorageItems } from '../../localStorageItemEnums'
 
 import './styles.css'
 
@@ -39,7 +39,7 @@ export const LoginForm: React.FC = () => {
 
   if (data && data.login && data.login.user) {
     setAccessToken(data.login.access_token)
-    localStorage.setItem('login', data.login.user.email)
+    localStorage.setItem(LocalStorageItems.User, JSON.stringify(data.login.user))
     navigate('/', { replace: true })
   }
 
