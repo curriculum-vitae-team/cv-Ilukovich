@@ -1,8 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Box from '@mui/material/Box'
-import Tab from '@mui/material/Tab'
-import Tabs from '@mui/material/Tabs'
+import { Box, Tab, Tabs } from '@mui/material'
 
 import { AppRoutes } from '../../path'
 
@@ -29,6 +27,7 @@ export const UnauthenticatedHeader: React.FC<HeaderProps> = props => {
             onChange={changeActiveTab}
             centered
             TabIndicatorProps={{ style: { background: 'red' } }}
+            textColor="inherit"
           >
             <Tab label="login" component={Link} to={AppRoutes.login} className="caps_title" />
             <Tab label="signup" component={Link} to={AppRoutes.signup} className="caps_title" />

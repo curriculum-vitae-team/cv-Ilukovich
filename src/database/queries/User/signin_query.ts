@@ -5,6 +5,7 @@ export const signinQuery = gql`
     login(auth: { email: $email, password: $password }) {
       user {
         id
+        email
       }
       access_token
     }
