@@ -1,4 +1,4 @@
 export enum LocalStorageItems {
-    User = 'user',
-    Token = 'token'
+  User = 'user',
+  Token = 'token'
 }

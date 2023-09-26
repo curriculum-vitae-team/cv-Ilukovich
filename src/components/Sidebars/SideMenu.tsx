@@ -19,7 +19,7 @@ import { tabsList } from './tabsList'
 import './styles.css'
 
 export const SideMenu = () => {
-  const [state, setState] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   const toggleDrawer = () => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
@@ -30,7 +30,7 @@ export const SideMenu = () => {
       return
     }
 
-    setState(prevState => !prevState)
+    setIsOpen(prevState => !prevState)
   }
 
   const list = () => (
@@ -64,7 +64,7 @@ export const SideMenu = () => {
           <MenuIcon />
         </IconButton>
       </Button>
-      <Drawer anchor="left" open={state} onClose={toggleDrawer()}>
+      <Drawer anchor="left" open={isOpen} onClose={toggleDrawer()}>
         {list()}
       </Drawer>
     </>
