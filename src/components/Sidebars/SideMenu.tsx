@@ -60,7 +60,7 @@ export const SideMenu = () => {
   return (
     <>
       <Button onClick={toggleDrawer()}>
-        <IconButton size="large" edge="start" color="error" aria-label="menu" sx={{ mr: 2 }}>
+        <IconButton size="large" edge="start" color="primary" aria-label="menu" sx={{ mr: 2 }}>
           <MenuIcon />
         </IconButton>
       </Button>
