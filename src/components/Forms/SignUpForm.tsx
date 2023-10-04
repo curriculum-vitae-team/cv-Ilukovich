@@ -74,7 +74,12 @@ export const SignUpForm: React.FC = () => {
               {error ? <span className="error_message"> {error?.message}. Try again</span> : ''}
               {loading ? <CircularProgress /> : ''}
             </div>
-            <Button className="sing_in_button caps_title" type="submit" variant="contained">
+            <Button
+              className="sing_in_button caps_title"
+              type="submit"
+              variant="contained"
+              color="primary"
+            >
               sign up
             </Button>
           </div>

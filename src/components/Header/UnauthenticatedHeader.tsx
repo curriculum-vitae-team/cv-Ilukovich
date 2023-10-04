@@ -26,8 +26,8 @@ export const UnauthenticatedHeader: React.FC<HeaderProps> = props => {
             value={activeTab}
             onChange={changeActiveTab}
             centered
-            TabIndicatorProps={{ style: { background: 'red' } }}
-            textColor="inherit"
+            indicatorColor="primary"
+            textColor="primary"
           >
             <Tab label="login" component={Link} to={AppRoutes.login} className="caps_title" />
             <Tab label="signup" component={Link} to={AppRoutes.signup} className="caps_title" />

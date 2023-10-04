@@ -16,19 +16,10 @@
   cursor: pointer;
 }
 
-.active_header_button {
-  height: calc(100% - 3px);
-  border-bottom: solid #ae2f32 4px;
-}
-
 .header_user_email {
   color: white;
   font-family: 'Roboto', sans-serif;
   font-weight: 600;
-}
-
-.active_header_button span {
-  color: #ae2f32;
 }
 
 .header_block {
@@ -60,8 +51,4 @@
 
 .MuiTab-root {
   color: white;
-}
-
-.Mui-selected {
-  color: red;
 }
