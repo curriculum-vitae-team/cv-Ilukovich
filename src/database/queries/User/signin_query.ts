@@ -6,6 +6,9 @@ export const signinQuery = gql`
       user {
         id
         email
+        profile{
+          full_name
+        }
       }
       access_token
     }
