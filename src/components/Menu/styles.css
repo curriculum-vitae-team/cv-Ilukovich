@@ -1,0 +1,26 @@
+.MuiPopover-paper::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 14px;
+  width: 10px;
+  height: 10px;
+  background-color: #f0f0f0; /* Use the appropriate background color */
+  transform: translateY(-50%) rotate(45deg);
+  z-index: 0;
+}
+
+.MuiPopover-paper {
+  elevation: 0;
+  overflow: visible;
+  filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.32));
+  margin-top: 12px;
+}
+
+.MuiPopover-paper .MuiAvatar-root {
+  width: 32px;
+  height: 32px;
+  margin-left: -4px;
+  margin-right: 8px;
+}
