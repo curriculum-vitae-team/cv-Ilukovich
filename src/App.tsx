@@ -8,7 +8,7 @@ import { AuthenticatedWrapper } from './AuthenticatedWrapper'
 import { LocalStorageItems } from './localStorageItemEnums'
 import { UnauthenticatedWrapper } from './UnauthenticatedWrapper'
 
-const accessToken = makeVar<string>(localStorage.getItem('token') || '')
+export const accessToken = makeVar<string>(localStorage.getItem('token') || '')
 
 export const setAccessToken = (token: string) => {
   accessToken(token)
