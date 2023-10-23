@@ -17,7 +17,7 @@ export const AuthenticatedWrapper = () => {
           <Route path={AppRoutes.skills} element={<div>skills</div>} />
           <Route path={AppRoutes.languages} element={<div>languages</div>} />
         </Route>
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Navigate to={AppRoutes.employees} replace />} />
       </Routes>
     </>
   )
