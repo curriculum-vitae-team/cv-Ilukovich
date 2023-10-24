@@ -24,3 +24,17 @@
   margin-left: -4px;
   margin-right: 8px;
 }
+
+.MuiBreadcrumbs-li {
+  text-transform: capitalize;
+}
+
+.MuiBreadcrumbs-li:last-child {
+  font-weight: bold;
+  border-bottom: none;
+}
+
+.MuiBreadcrumbs-ol {
+  margin-top: 10px;
+  margin-left: 40px;
+}

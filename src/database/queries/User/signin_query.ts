@@ -6,7 +6,7 @@ export const signinQuery = gql`
       user {
         id
         email
-        profile{
+        profile {
           full_name
         }
       }

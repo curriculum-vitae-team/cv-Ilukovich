@@ -1,14 +1,21 @@
 import React from 'react'
 import * as ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
+import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client'
 
 import { App } from './App'
 
 import './assets/css/styles.css'
 
+const token = `Bearer ${localStorage.getItem('token')}`
+
 const client = new ApolloClient({
-  uri: 'https://cv-project-js.inno.ws/api/graphql',
+  link: new HttpLink({
+    uri: 'https://cv-project-js.inno.ws/api/graphql',
+    headers: {
+      Authorization: token
+    }
+  }),
   cache: new InMemoryCache()
 })
 
