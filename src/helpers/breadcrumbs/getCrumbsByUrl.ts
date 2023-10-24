@@ -1,12 +1,7 @@
 import { AppRoutes } from '../../path'
 
 export const getCrumbsByUrl = (dirs: string[]) => {
-  const crumbs = [
-    {
-      title: 'Home',
-      path: '/'
-    }
-  ]
+  const crumbs: { title: string; path: string }[] = []
 
   dirs.forEach(dir => {
     crumbs.push({

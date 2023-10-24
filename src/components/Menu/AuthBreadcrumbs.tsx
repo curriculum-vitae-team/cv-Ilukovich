@@ -1,27 +1,27 @@
 import * as React from 'react'
-import { useLocation } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import Breadcrumbs from '@mui/material/Breadcrumbs'
-import Link from '@mui/material/Link'
 import Stack from '@mui/material/Stack'
 
 import { getCrumbsByUrl } from '../../helpers/breadcrumbs/getCrumbsByUrl'
-import { getDirsFromUrl } from '../../helpers/general/getDirsFromUrl'
+import { AppRoutes } from '../../path'
 
 export const AuthBreadcrumbs: React.FC = () => {
-  useLocation()
+  const location = useLocation()
+  const dirs = location.pathname.split('/').filter(item => item != '')
 
-  const dirsFromUrl = getDirsFromUrl()
-  const crumbs = getCrumbsByUrl(dirsFromUrl)
+  const crumbs = getCrumbsByUrl(dirs)
 
   const breadcrumbs = crumbs.map(({ title, path }, index) => (
-    <Link underline="hover" key={index} color="inherit" href={path}>
+    <NavLink key={index} to={path}>
       {title}
-    </Link>
+    </NavLink>
   ))
 
   return (
     <Stack spacing={2}>
       <Breadcrumbs separator="›" aria-label="breadcrumb">
+        <NavLink to={AppRoutes.employees}>Home</NavLink>
         {breadcrumbs}
       </Breadcrumbs>
     </Stack>
