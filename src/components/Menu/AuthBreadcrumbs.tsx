@@ -3,18 +3,20 @@ import { NavLink, useLocation } from 'react-router-dom'
 import Breadcrumbs from '@mui/material/Breadcrumbs'
 import Stack from '@mui/material/Stack'
 
-import { getCrumbsByUrl } from '../../helpers/breadcrumbs/getCrumbsByUrl'
 import { AppRoutes } from '../../path'
 
 export const AuthBreadcrumbs: React.FC = () => {
   const location = useLocation()
-  const dirs = location.pathname.split('/').filter(item => item != '')
+  const pathNameArray = location.pathname.split('/').filter(item => item != '')
 
-  const crumbs = getCrumbsByUrl(dirs)
-
-  const breadcrumbs = crumbs.map(({ title, path }, index) => (
-    <NavLink key={index} to={path}>
-      {title}
+  const breadcrumbs = pathNameArray.map((item, index, arr) => (
+    <NavLink
+      key={index}
+      to={AppRoutes[item]}
+      style={{ pointerEvents: index === arr.length - 1 ? 'none' : 'auto' }}
+      color={index === arr.length - 1 ? 'info' : 'primary'}
+    >
+      {item}
     </NavLink>
   ))
 
